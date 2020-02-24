@@ -16,9 +16,7 @@ module.exports = function transform(arr) {
         }
         else if(arr[i] == '--double-prev') {
             if(i != 0) {
-                let cur_len = new_arr.length; 
-                let last = new_arr[cur_len-1]; 
-                new_arr.push(last);
+                new_arr.push(arr[i -1]);
             }
         }
         else new_arr.push(arr[i]);
