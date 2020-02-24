@@ -12,7 +12,7 @@ module.exports = function createDreamTeam(arr) {
             }
         }           
     }
-    if(res.length == "") return false;
+    if(res.length == 0) return false;
     res.sort();
     return res.join("");
 };
