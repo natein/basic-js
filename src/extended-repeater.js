@@ -1,7 +1,8 @@
 module.exports = function repeater(str, options) {
-   res = "";
+    res = "";
     let src_str = "";
-    if(typeof(str) != 'string') src_str = str.toString();
+    if(str === null) src_str = "null";
+    else if (typeof(str) != 'string') src_str = str.toString();
     else src_str = str;    
     let repeatTimes = 1;
     let separator = "+";
@@ -9,12 +10,17 @@ module.exports = function repeater(str, options) {
     let additionRepeatTimes = 1;
     let additionSeparator = "|";
     if(arguments.length > 1) {
-        if(options.hasOwnProperty('repeatTimes') == true) repeatTimes = options.repeatTimes;
+        if(options.hasOwnProperty('repeatTimes') == true) {
+            if(options.repeatTimes != undefined) repeatTimes = options.repeatTimes;
+        }
         if(options.hasOwnProperty('separator') == true) separator = options.separator;
-        if(options.hasOwnProperty('additionRepeatTimes') == true) additionRepeatTimes = options.additionRepeatTimes;
+        if(options.hasOwnProperty('additionRepeatTimes') == true) {
+            if(options.additionRepeatTimes != undefined) additionRepeatTimes = options.additionRepeatTimes;
+        }
         if(options.hasOwnProperty('additionSeparator') == true) additionSeparator = options.additionSeparator;
         if(options.hasOwnProperty('addition') == true) {
-            if(typeof(options.addition) != 'string') addition = options.addition.toString();
+            if(options.addition === null) addition = "null";
+            else if(typeof(options.addition) != 'string') addition = options.addition.toString();
             else addition = options.addition;
         }
     }
