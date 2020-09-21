@@ -1,25 +1,27 @@
 module.exports = function transform(arr) {
     if(type(arr) != 'array') throw new Error();
-    let new_arr = [];
+    const new_arr = [];
     let len = arr.length;
     for(let i = 0; i < len; i++) {
-        if(arr[i] == '--discard-next') i++;
-        else if(arr[i] == '--discard-prev') {
-            if(new_arr.length != 0) new_arr.pop();
+        switch(arr[i]) {
+            case '--discard-next':
+                if (i < len - 3) {
+                    if(arr[i+2] === '--double-prev'|| arr[i+2] === '--discard-prev')
+                        i = i + 1;
+                }
+                i++; break;
+            case '--discard-prev':
+                if (new_arr.length) new_arr.pop();
+                break;
+            case '--double-next':
+                if(i != len - 1) new_arr.push(arr[i+1]);
+                break;
+            case '--double-prev':
+                if(i != 0) new_arr.push(arr[i -1]);
+                break;
+            default:
+                new_arr.push(arr[i]);
         }
-        else if(arr[i] == '--double-next') {
-            if(i != len - 1) {
-                new_arr.push(arr[i+1]);
-                new_arr.push(arr[i+1]);
-                i++;
-            }
-        }
-        else if(arr[i] == '--double-prev') {
-            if(i != 0) {
-                new_arr.push(arr[i -1]);
-            }
-        }
-        else new_arr.push(arr[i]);
     }
     return new_arr;
 };
